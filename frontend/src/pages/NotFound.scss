@@ -1,0 +1,171 @@
+.not-found {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+
+    &__content {
+        text-align: center;
+        max-width: 600px;
+        z-index: 2;
+        padding: 3rem;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+        backdrop-filter: blur(4px);
+
+        h1 {
+            font-size: 8rem;
+            margin: 0;
+            background: linear-gradient(45deg, #4a90e2, #67b26f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+
+            .zero {
+                display: inline-block;
+                animation: spin 10s linear infinite;
+
+                border-radius: 30%; 
+                color: #34dd2e;
+                font-size: 10rem;
+                font-weight: bold;
+                text-shadow: 0 0 10px #34dd2e;
+                margin-right: 0.2rem;
+                margin-left: 0.2rem;
+                animation: spin 10s linear infinite;
+                animation-delay: 0s;
+
+            }
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #333;
+            margin: 1rem 0;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    &__button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        
+        &:not(.secondary) {
+            background: #4a90e2;
+            color: white;
+
+            &:hover {
+                background: #357abd;
+                transform: translateY(-2px);
+            }
+        }
+
+        &.secondary {
+            background: white;
+            color: #4a90e2;
+            border: 2px solid #4a90e2;
+
+            &:hover {
+                background: #4a90e2;
+                color: white;
+                transform: translateY(-2px);
+            }
+        }
+    }
+
+    &__animation {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+
+        .circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+
+            span {
+                position: absolute;
+                display: block;
+                width: 20px;
+                height: 20px;
+                background: rgba(74, 144, 226, 0.1);
+                animation: animate 25s linear infinite;
+                bottom: -150px;
+                border-radius: 50%;
+
+                &:nth-child(1) {
+                    left: 25%;
+                    width: 80px;
+                    height: 80px;
+                    animation-delay: 0s;
+                }
+
+                &:nth-child(2) {
+                    left: 70%;
+                    width: 60px;
+                    height: 60px;
+                    animation-delay: 2s;
+                    animation-duration: 12s;
+                }
+
+                &:nth-child(3) {
+                    left: 40%;
+                    width: 40px;
+                    height: 40px;
+                    animation-delay: 4s;
+                }
+            }
+        }
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes animate {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+    100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+} 

@@ -1,0 +1,660 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+$primary-gradient: linear-gradient(135deg, #4361ee, #3a0ca3);
+$secondary-gradient: linear-gradient(135deg, #7209b7, #f72585);
+$success-gradient: linear-gradient(135deg, #10b981, #059669);
+$warning-gradient: linear-gradient(135deg, #f59e0b, #d97706);
+$info-gradient: linear-gradient(135deg, #0ea5e9, #0284c7);
+$background-color: #f8fafc;
+$card-background: #ffffff;
+$text-primary: #1e293b;
+$text-secondary: #64748b;
+$border-radius: 16px;
+$box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+$transition-speed: 0.3s;
+
+// Animations
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.dashboard {
+  padding: 1.5rem;
+  
+  &__header {
+    margin-bottom: 2rem;
+    
+    &-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: $text-primary;
+      margin-bottom: 0.5rem;
+      position: relative;
+      display: inline-block;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: $primary-gradient;
+        border-radius: 2px;
+      }
+    }
+    
+    &-subtitle {
+      color: $text-secondary;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+    }
+    
+    &-date {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      background-color: rgba(#4361ee, 0.1);
+      border-radius: 50px;
+      color: #4361ee;
+      font-weight: 500;
+      margin-top: 1rem;
+      
+      svg {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+  
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    
+    &-card {
+      background-color: $card-background;
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: all $transition-speed;
+      animation: fadeIn 0.5s ease-out forwards;
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        
+        .dashboard__stats-card-icon {
+          transform: scale(1.1) rotate(10deg);
+        }
+        
+        .dashboard__stats-card-background {
+          opacity: 0.15;
+          transform: rotate(15deg) scale(1.5);
+        }
+      }
+      
+      &-content {
+        position: relative;
+        z-index: 2;
+      }
+      
+      &-background {
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        width: 150px;
+        height: 150px;
+        opacity: 0.1;
+        transition: all 0.5s ease;
+        transform: rotate(0deg) scale(1);
+      }
+      
+      &-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+        
+        svg {
+          font-size: 2rem;
+          color: white;
+        }
+        
+        &--courses {
+          background: $primary-gradient;
+          background-size: 200% 200%;
+          animation: gradientShift 5s ease infinite;
+        }
+        
+        &--users {
+          background: $secondary-gradient;
+          background-size: 200% 200%;
+          animation: gradientShift 5s ease infinite;
+        }
+        
+        &--categories {
+          background: $info-gradient;
+          background-size: 200% 200%;
+          animation: gradientShift 5s ease infinite;
+        }
+        
+        &--rating {
+          background: $warning-gradient;
+          background-size: 200% 200%;
+          animation: gradientShift 5s ease infinite;
+        }
+      }
+      
+      &-title {
+        color: $text-secondary;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      &-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: $text-primary;
+        margin-bottom: 0.5rem;
+      }
+      
+      &-trend {
+        display: flex;
+        align-items: center;
+        font-size: 0.875rem;
+        
+        &--up {
+          color: #10b981;
+        }
+        
+        &--down {
+          color: #ef4444;
+        }
+        
+        svg {
+          margin-right: 0.25rem;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+  
+  &__charts {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    
+    @media (min-width: 1024px) {
+      grid-template-columns: 2fr 1fr;
+    }
+    
+    &-card {
+      background-color: $card-background;
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
+      padding: 1.5rem;
+      animation: fadeIn 0.6s ease-out forwards;
+      
+      &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        
+        &-title {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: $text-primary;
+        }
+        
+        &-actions {
+          display: flex;
+          gap: 0.5rem;
+          
+          button {
+            background: none;
+            border: none;
+            color: $text-secondary;
+            cursor: pointer;
+            transition: color $transition-speed;
+            
+            &:hover {
+              color: $text-primary;
+            }
+          }
+        }
+      }
+      
+      &-content {
+        height: 350px;
+      }
+    }
+  }
+  
+  &__activity {
+    background-color: $card-background;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    animation: fadeIn 0.7s ease-out forwards;
+    
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      
+      &-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: $text-primary;
+      }
+      
+      &-actions {
+        button {
+          background: none;
+          border: 1px solid rgba($text-secondary, 0.2);
+          border-radius: 8px;
+          padding: 0.5rem 1rem;
+          color: $text-secondary;
+          font-size: 0.875rem;
+          cursor: pointer;
+          transition: all $transition-speed;
+          
+          &:hover {
+            background-color: rgba($text-secondary, 0.1);
+            color: $text-primary;
+          }
+        }
+      }
+    }
+    
+    &-list {
+      &-item {
+        display: flex;
+        align-items: flex-start;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba($text-secondary, 0.1);
+        
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        &-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+          margin-right: 1rem;
+          flex-shrink: 0;
+          
+          svg {
+            font-size: 1.25rem;
+            color: white;
+          }
+          
+          &--enrollment {
+            background: $primary-gradient;
+          }
+          
+          &--course {
+            background: $secondary-gradient;
+          }
+          
+          &--user {
+            background: $info-gradient;
+          }
+          
+          &--review {
+            background: $warning-gradient;
+          }
+        }
+        
+        &-content {
+          flex: 1;
+          
+          &-title {
+            font-weight: 500;
+            color: $text-primary;
+            margin-bottom: 0.25rem;
+            
+            span {
+              font-weight: 600;
+            }
+          }
+          
+          &-meta {
+            display: flex;
+            align-items: center;
+            color: $text-secondary;
+            font-size: 0.875rem;
+            
+            svg {
+              margin-right: 0.25rem;
+              font-size: 1rem;
+            }
+          }
+        }
+        
+        &-time {
+          color: $text-secondary;
+          font-size: 0.875rem;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+  
+  &__performance {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    &-card {
+      background-color: $card-background;
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
+      padding: 1.5rem;
+      animation: fadeIn 0.8s ease-out forwards;
+      
+      &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        
+        &-title {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: $text-primary;
+        }
+      }
+      
+      &-content {
+        height: 250px;
+      }
+    }
+  }
+  
+  &__loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    
+    &-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(#4361ee, 0.1);
+      border-radius: 50%;
+      border-top-color: #4361ee;
+      animation: rotate 1s linear infinite;
+    }
+  }
+  
+  &__error {
+    background-color: rgba(#ef4444, 0.05);
+    border-left: 4px solid #ef4444;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    
+    &-message {
+      display: flex;
+      align-items: center;
+      color: #b91c1c;
+      
+      svg {
+        margin-right: 0.75rem;
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+// Custom chart styles
+.recharts-default-tooltip {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
+  padding: 12px 16px !important;
+  
+  .recharts-tooltip-label {
+    color: $text-primary !important;
+    font-weight: 600 !important;
+    margin-bottom: 8px !important;
+  }
+  
+  .recharts-tooltip-item {
+    color: $text-secondary !important;
+    
+    .recharts-tooltip-item-name {
+      font-weight: 500 !important;
+    }
+    
+    .recharts-tooltip-item-separator {
+      margin: 0 4px !important;
+    }
+    
+    .recharts-tooltip-item-value {
+      font-weight: 600 !important;
+    }
+  }
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba($text-secondary, 0.1) !important;
+}
+
+.recharts-xAxis .recharts-cartesian-axis-line,
+.recharts-yAxis .recharts-cartesian-axis-line {
+  stroke: rgba($text-secondary, 0.2) !important;
+}
+
+.recharts-xAxis .recharts-cartesian-axis-tick-line,
+.recharts-yAxis .recharts-cartesian-axis-tick-line {
+  stroke: rgba($text-secondary, 0.2) !important;
+}
+
+.recharts-xAxis .recharts-cartesian-axis-tick-value,
+.recharts-yAxis .recharts-cartesian-axis-tick-value {
+  fill: $text-secondary !important;
+  font-size: 12px !important;
+}
+
+.recharts-legend-item-text {
+  color: $text-secondary !important;
+  font-size: 14px !important;
+}
+
+.recharts-tooltip-cursor {
+  fill: rgba($text-secondary, 0.05) !important;
+}
+
+.recharts-active-dot {
+  r: 6 !important;
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba($text-secondary, 0.2);
+  border-radius: 4px;
+  
+  &:hover {
+    background-color: rgba($text-secondary, 0.3);
+  }
+}
+
+// SVG background patterns
+.pattern-dots {
+  fill: rgba($text-secondary, 0.05);
+}
+
+.pattern-lines {
+  stroke: rgba($text-secondary, 0.05);
+  stroke-width: 1;
+}
+
+.pattern-waves {
+  fill: none;
+  stroke: rgba($text-secondary, 0.05);
+  stroke-width: 1;
+}
+
+// Gradient definitions for charts
+.chart-gradient-primary stop:first-child {
+  stop-color: #4361ee;
+  stop-opacity: 0.8;
+}
+
+.chart-gradient-primary stop:last-child {
+  stop-color: #4361ee;
+  stop-opacity: 0.1;
+}
+
+.chart-gradient-secondary stop:first-child {
+  stop-color: #7209b7;
+  stop-opacity: 0.8;
+}
+
+.chart-gradient-secondary stop:last-child {
+  stop-color: #7209b7;
+  stop-opacity: 0.1;
+}
+
+// Pulse animation for notifications
+.pulse {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background-color: currentColor;
+    opacity: 0.4;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+}
+
+// Shimmer loading effect
+.shimmer {
+  background: linear-gradient(90deg, 
+    rgba($text-secondary, 0.05) 0%, 
+    rgba($text-secondary, 0.1) 50%, 
+    rgba($text-secondary, 0.05) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 1rem;
+    
+    &__header {
+      &-title {
+        font-size: 1.5rem;
+      }
+    }
+    
+    &__stats {
+      &-card {
+        padding: 1.25rem;
+        
+        &-icon {
+          width: 50px;
+          height: 50px;
+        }
+        
+        &-value {
+          font-size: 1.5rem;
+        }
+      }
+    }
+    
+    &__charts {
+      &-card {
+        &-content {
+          height: 300px;
+        }
+      }
+    }
+    
+    &__performance {
+      &-card {
+        &-content {
+          height: 200px;
+        }
+      }
+    }
+  }
+}

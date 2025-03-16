@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+// Variables
+$primary-color: #4361ee;
+$secondary-color: #3a0ca3;
+$accent-color: #4cc9f0;
+$text-color: #2b2d42;
+$light-text: #8d99ae;
+$white: #ffffff;
+$black: #000000;
+$gray-bg: #f8f9fa;
+$gradient-start: #4361ee;
+$gradient-end: #3a0ca3;
+$box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+$transition: all 0.3s ease;
+
+// Mixins
+@mixin flex($direction: row, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin gradient-bg {
+  background: linear-gradient(135deg, $gradient-start, $gradient-end);
+}
+
+@mixin hover-effect {
+  transition: $transition;
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// Course Card Styles
+.course-card {
+  font-family: 'Poppins', sans-serif;
+  background: $white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: $box-shadow;
+  transition: $transition;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  @include hover-effect;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    @include gradient-bg;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  
+  &:hover::after {
+    transform: scaleX(1);
+  }
+  
+  .course-image {
+    position: relative;
+    overflow: hidden;
+    
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba($black, 0), rgba($black, 0.5));
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .course-level {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba($white, 0.9);
+      color: $text-color;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.4rem 0.8rem;
+      border-radius: 50px;
+      z-index: 2;
+      box-shadow: 0 3px 10px rgba($black, 0.1);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+  
+  &:hover {
+    .course-image {
+      img {
+        transform: scale(1.05);
+      }
+      
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+  
+  .course-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    
+    .course-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: $text-color;
+      margin: 0 0 0.5rem;
+      line-height: 1.4;
+      transition: $transition;
+      
+      &:hover {
+        color: $primary-color;
+      }
+    }
+    
+    .course-instructor {
+      font-size: 0.85rem;
+      color: $light-text;
+      margin: 0 0 1rem;
+      display: flex;
+      align-items: center;
+      
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 4px;
+        background: $accent-color;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+      }
+    }
+    
+    .course-description {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: $light-text;
+      margin: 0 0 1.5rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex-grow: 1;
+    }
+    
+    .course-details {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba($black, 0.05);
+      
+      .course-duration, .course-category {
+        font-size: 0.8rem;
+        color: $light-text;
+        display: flex;
+        align-items: center;
+        
+        &::before {
+          font-family: 'Font Awesome 5 Free';
+          font-weight: 900;
+          margin-right: 0.5rem;
+          color: $primary-color;
+        }
+      }
+      
+      .course-duration::before {
+        content: '\f017'; // clock icon
+      }
+      
+      .course-category::before {
+        content: '\f02b'; // tag icon
+      }
+    }
+    
+    .course-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      .course-price {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: $primary-color;
+        
+        &::before {
+          content: '';
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          background: linear-gradient(135deg, $gradient-start, $gradient-end);
+          border-radius: 50%;
+          margin-right: 0.5rem;
+          vertical-align: middle;
+        }
+      }
+      
+      .view-course-btn {
+        padding: 0.6rem 1.2rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        background: transparent;
+        color: $primary-color;
+        border: 2px solid $primary-color;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          @include gradient-bg;
+          z-index: -1;
+          transform: scaleX(0);
+          transform-origin: right;
+          transition: transform 0.4s ease;
+        }
+        
+        &:hover {
+          color: $white;
+          border-color: transparent;
+          
+          &::before {
+            transform: scaleX(1);
+            transform-origin: left;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Add animation for cards
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.course-level {
+    &.beginner {
+      background: rgba(#4ade80, 0.9);
+      color: #064e3b;
+    }
+    
+    &.intermediate {
+      background: rgba(#facc15, 0.9);
+      color: #854d0e;
+    }
+    
+    &.advanced {
+      background: rgba(#f87171, 0.9);
+      color: #991b1b;
+    }
+  }
+  
+// Add Font Awesome for icons
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');

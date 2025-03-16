@@ -1,0 +1,444 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+// Variables
+$primary-color: #4361ee;
+$secondary-color: #3a0ca3;
+$accent-color: #4cc9f0;
+$success-color: #2ecc71;
+$warning-color: #f39c12;
+$danger-color: #e74c3c;
+$text-color: #2b2d42;
+$text-light: #6c757d;
+$text-lighter: #adb5bd;
+$background-color: #f8f9fa;
+$card-bg: #ffffff;
+$border-color: #e9ecef;
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+$shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$transition: all 0.3s ease;
+
+// Mixins
+@mixin flex($direction: row, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin grid($columns, $gap) {
+  display: grid;
+  grid-template-columns: $columns;
+  gap: $gap;
+}
+
+.profile {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    &__container {
+        background-color: $card-bg;
+        border-radius: $radius-lg;
+        box-shadow: $shadow-md;
+        overflow: hidden;
+    }
+
+    &__header {
+        position: relative;
+        background: linear-gradient(135deg, $primary-color 0%, darken($primary-color, 15%) 100%);
+  padding: 2rem;
+        color: white;
+
+        &-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        &-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+  gap: 2rem;
+            align-items: center;
+
+            @media (max-width: 768px) {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        &-actions {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 3;
+            display: flex;
+            gap: 0.5rem;
+
+            @media (max-width: 768px) {
+    position: relative;
+    top: 0;
+                right: 0;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+        }
+    }
+
+    &__avatar {
+  position: relative;
+        width: 150px;
+        height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+  
+        &-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+        &-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $background-color;
+            color: $text-lighter;
+            font-size: 3rem;
+        }
+
+        &-upload {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+            background-color: $primary-color;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+    cursor: pointer;
+    transition: $transition;
+    
+    &:hover {
+                background-color: darken($primary-color, 10%);
+  }
+  
+            input {
+    display: none;
+  }
+
+            svg {
+                color: white;
+    font-size: 1rem;
+            }
+        }
+    }
+
+    &__info {
+        flex: 1;
+
+        &-name {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem;
+        }
+
+        &-role {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 1rem;
+            border-radius: 1rem;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+
+            svg {
+                font-size: 0.8rem;
+            }
+        }
+
+        &-details {
+            display: flex;
+  gap: 1.5rem;
+            font-size: 0.9rem;
+
+            p {
+  display: flex;
+  align-items: center;
+                gap: 0.5rem;
+                margin: 0;
+
+                svg {
+                    font-size: 0.8rem;
+                }
+            }
+
+            @media (max-width: 768px) {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: center;
+            }
+        }
+    }
+
+    &__body {
+        padding: 2rem;
+    }
+
+    &__section {
+    margin-bottom: 2rem;
+    
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+      color: $text-color;
+    }
+  }
+  
+    &__bio {
+        background-color: $background-color;
+        padding: 1.5rem;
+        border-radius: $radius-md;
+    margin-bottom: 1.5rem;
+    
+        p {
+            margin: 0;
+            line-height: 1.6;
+      color: $text-color;
+        }
+
+        &-meta {
+            margin-top: 1rem;
+            color: $text-light;
+            font-size: 0.85rem;
+        }
+
+        &--empty {
+            text-align: center;
+            padding: 2rem;
+            background-color: $background-color;
+            border-radius: $radius-md;
+            
+            p {
+                color: $text-light;
+                font-style: italic;
+                margin: 0;
+            }
+        }
+    }
+
+    &__stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    &__stat {
+        background-color: $card-bg;
+        padding: 1.5rem;
+        border-radius: $radius-md;
+        text-align: center;
+      transition: $transition;
+        box-shadow: $shadow-sm;
+      
+      &:hover {
+        transform: translateY(-2px);
+            box-shadow: $shadow-md;
+        }
+
+        svg {
+            font-size: 2rem;
+            color: $primary-color;
+            margin-bottom: 0.5rem;
+        }
+
+        &-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: $text-color;
+            margin-bottom: 0.25rem;
+        }
+
+        &-label {
+            display: block;
+            font-size: 0.9rem;
+            color: $text-light;
+        }
+    }
+
+    &__courses {
+        display: grid;
+        gap: 1rem;
+    }
+
+    &__course {
+        background-color: $card-bg;
+        padding: 1.5rem;
+        border-radius: $radius-md;
+        box-shadow: $shadow-sm;
+
+        &-info {
+            h3 {
+                margin: 0 0 1rem;
+                font-size: 1.1rem;
+                color: $text-color;
+            }
+        }
+
+        &-progress {
+            background-color: $background-color;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+  position: relative;
+
+            &-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+                height: 100%;
+                background-color: $primary-color;
+                transition: width 0.3s ease;
+            }
+
+            span {
+                display: block;
+                margin-top: 0.5rem;
+                font-size: 0.9rem;
+                color: $text-light;
+            }
+        }
+    }
+
+    &__form {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    &__form-group {
+    margin-bottom: 1.5rem;
+    
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: $text-color;
+            font-weight: 500;
+
+            &::after {
+                content: "*";
+                color: $danger-color;
+                margin-left: 0.25rem;
+            }
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid $border-color;
+            border-radius: $radius-md;
+            background-color: $card-bg;
+    color: $text-color;
+            font-size: 1rem;
+            transition: $transition;
+
+            &:focus {
+                outline: none;
+                border-color: $primary-color;
+                box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+            }
+
+            &:disabled {
+                background-color: $background-color;
+                cursor: not-allowed;
+            }
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+    }
+
+    &__action-btn {
+        display: inline-flex;
+  align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: $radius-md;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: $transition;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        svg {
+            font-size: 0.9rem;
+        }
+
+        &--save {
+            background-color: $success-color;
+    
+    &:hover {
+                background-color: darken($success-color, 10%);
+            }
+        }
+
+        &--cancel {
+            background-color: $danger-color;
+
+            &:hover {
+                background-color: darken($danger-color, 10%);
+            }
+        }
+    }
+}
+
+.profile-simple {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 2rem;
+    background-color: #f8f9fa;
+
+    &__title {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #2b2d42;
+        text-align: center;
+        margin: 0;
+    }
+
+    &--error {
+        color: #e74c3c;
+    }
+}

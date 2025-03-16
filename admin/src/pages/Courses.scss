@@ -1,0 +1,674 @@
+// @import './animations.scss';
+
+// Variables
+$primary-color: #4361ee;
+$secondary-color: #3a0ca3;
+$accent-color: #7209b7;
+$highlight-color: #f72585;
+$success-color: #10b981;
+$error-color: #ef4444;
+$warning-color: #f59e0b;
+$background-color: #f8f9fa;
+$card-background: #ffffff;
+$text-primary: #2d3748;
+$text-secondary: #718096;
+$border-radius: 12px;
+$box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$transition-speed: 0.3s;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// Mixins
+@mixin respond-to($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+.courses-page {
+  padding: 1rem;
+  
+  @include respond-to($breakpoint-sm) {
+    padding: 1.5rem;
+  }
+  
+  @include respond-to($breakpoint-md) {
+    padding: 2rem;
+  }
+  
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    
+    @include respond-to($breakpoint-sm) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    &-title {
+      font-size: 1.25rem;
+      
+      @include respond-to($breakpoint-sm) {
+        font-size: 1.5rem;
+      }
+      
+      @include respond-to($breakpoint-md) {
+        font-size: 1.75rem;
+      }
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, $primary-color, $highlight-color);
+        border-radius: 2px;
+        
+        @include respond-to($breakpoint-sm) {
+          width: 80px;
+        }
+      }
+    }
+    
+    &-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+      
+      @include respond-to($breakpoint-sm) {
+        flex-direction: row;
+        width: auto;
+      }
+    }
+    
+    &-search {
+      width: 100%;
+      
+      @include respond-to($breakpoint-sm) {
+        width: 250px;
+      }
+      
+      @include respond-to($breakpoint-md) {
+        width: 300px;
+      }
+    }
+    
+    &-button {
+      width: 100%;
+      
+      @include respond-to($breakpoint-sm) {
+        width: auto;
+      }
+      
+      padding: 0.5rem 1rem;
+      
+      @include respond-to($breakpoint-md) {
+        padding: 0.75rem 1.5rem;
+      }
+      
+      background: linear-gradient(135deg, $primary-color, $accent-color);
+      color: white;
+      border: none;
+      border-radius: $border-radius;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all $transition-speed;
+      box-shadow: 0 4px 6px rgba($primary-color, 0.25);
+      
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 10px rgba($primary-color, 0.3);
+      }
+      
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba($primary-color, 0.2);
+      }
+      
+      svg {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+  
+  &__error {
+    background-color: rgba($error-color, 0.05);
+    border-left: 4px solid $error-color;
+    color: darken($error-color, 20%);
+    padding: 1rem;
+    border-radius: $border-radius;
+    margin-bottom: 1.5rem;
+    animation: slideInLeft 0.3s ease-out;
+    
+    &-message {
+      display: flex;
+      align-items: center;
+      
+      svg {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+  
+  &__content {
+    background-color: $card-background;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    overflow: hidden;
+    animation: fadeIn 0.5s ease-out;
+    height: 600px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -1rem;
+    padding: 0 1rem;
+    
+    @include respond-to($breakpoint-sm) {
+      margin: 0;
+      padding: 0;
+    }
+    
+    &-loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba($primary-color, 0.1);
+        border-radius: 50%;
+        border-top-color: $primary-color;
+        animation: rotate 1s linear infinite;
+      }
+    }
+    
+    &-table {
+      width: 100%;
+      border-collapse: collapse;
+      
+      &-header {
+        background-color: rgba($primary-color, 0.03);
+        border-bottom: 1px solid rgba($primary-color, 0.1);
+        
+        th {
+          color: $text-primary;
+          font-weight: 600;
+          padding: 0.75rem;
+          font-size: 0.8rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          text-align: left;
+          position: sticky;
+          top: 0;
+          background-color: rgba($primary-color, 0.03);
+          z-index: 10;
+          
+          @include respond-to($breakpoint-sm) {
+            padding: 1rem;
+            font-size: 0.9rem;
+          }
+          
+          &:first-child {
+            padding-left: 1rem;
+          }
+          
+          &:last-child {
+            padding-right: 1rem;
+          }
+        }
+      }
+      
+      &-body {
+        tr {
+          transition: background-color $transition-speed;
+          
+          &:hover {
+            background-color: rgba($primary-color, 0.02);
+          }
+          
+          &:nth-child(even) {
+            background-color: rgba($primary-color, 0.01);
+          }
+          
+          td {
+            padding: 0.75rem;
+            color: $text-primary;
+            border-bottom: 1px solid rgba($text-secondary, 0.1);
+            white-space: nowrap;
+            
+            @include respond-to($breakpoint-sm) {
+              padding: 1rem;
+            }
+            
+            &:first-child {
+              padding-left: 1rem;
+            }
+            
+            &:last-child {
+              padding-right: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  &__course {
+    &-title {
+      font-weight: 500;
+      color: $text-primary;
+      font-size: 0.875rem;
+      max-width: 150px;
+      
+      @include respond-to($breakpoint-sm) {
+        font-size: 1rem;
+        max-width: 200px;
+      }
+      
+      @include respond-to($breakpoint-md) {
+        max-width: 300px;
+      }
+      
+      &:hover {
+        color: $primary-color;
+        cursor: pointer;
+      }
+    }
+    
+    &-description {
+      display: none;
+      
+      @include respond-to($breakpoint-md) {
+        display: block;
+        font-size: 0.875rem;
+        color: $text-secondary;
+        margin-top: 0.25rem;
+      }
+    }
+    
+    &-instructor {
+      color: $text-secondary;
+      font-size: 0.8rem;
+      
+      @include respond-to($breakpoint-sm) {
+        font-size: 0.9rem;
+      }
+    }
+    
+    &-category {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      background-color: rgba($primary-color, 0.1);
+      color: $primary-color;
+      
+      @include respond-to($breakpoint-sm) {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.75rem;
+      }
+    }
+    
+    &-price {
+      font-weight: 600;
+      color: $text-primary;
+      font-size: 0.875rem;
+      
+      @include respond-to($breakpoint-sm) {
+        font-size: 1rem;
+      }
+    }
+    
+    &-students {
+      display: flex;
+      align-items: center;
+      font-size: 0.8rem;
+      
+      @include respond-to($breakpoint-sm) {
+        font-size: 0.875rem;
+      }
+      
+      svg {
+        margin-right: 0.25rem;
+        color: $text-secondary;
+        font-size: 0.9rem;
+        
+        @include respond-to($breakpoint-sm) {
+          font-size: 1rem;
+        }
+      }
+    }
+    
+    &-rating {
+      display: flex;
+      align-items: center;
+      
+      &-stars {
+        display: flex;
+        margin-right: 0.5rem;
+        
+        svg {
+          color: $warning-color;
+          font-size: 0.9rem;
+          
+          @include respond-to($breakpoint-sm) {
+            font-size: 1rem;
+          }
+        }
+      }
+      
+      &-count {
+        color: $text-secondary;
+        font-size: 0.75rem;
+        
+        @include respond-to($breakpoint-sm) {
+          font-size: 0.8rem;
+        }
+      }
+    }
+    
+    &-actions {
+      display: flex;
+      gap: 0.25rem;
+      
+      @include respond-to($breakpoint-sm) {
+        gap: 0.5rem;
+      }
+      
+      button {
+        border: none;
+        padding: 0.4rem 0.75rem;
+        border-radius: $border-radius;
+        font-weight: 500;
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: all $transition-speed;
+        
+        @include respond-to($breakpoint-sm) {
+          padding: 0.5rem 1rem;
+          font-size: 0.8rem;
+        }
+        
+        &.edit {
+          background-color: rgba($primary-color, 0.1);
+          color: $primary-color;
+          
+          &:hover {
+            background-color: $primary-color;
+            color: white;
+          }
+        }
+        
+        &.delete {
+          background-color: rgba($error-color, 0.1);
+          color: $error-color;
+          
+          &:hover {
+            background-color: $error-color;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+  
+  &__pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-top: 1px solid rgba($text-secondary, 0.1);
+    
+    &-info {
+      color: $text-secondary;
+      font-size: 0.875rem;
+    }
+    
+    &-controls {
+      display: flex;
+      align-items: center;
+      
+      &-pages {
+        display: flex;
+        align-items: center;
+        
+        button {
+          width: 36px;
+          height: 36px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: none;
+          background: none;
+          cursor: pointer;
+          color: $text-secondary;
+          border-radius: 4px;
+          margin: 0 2px;
+          transition: all $transition-speed;
+          
+          &:hover:not(:disabled) {
+            background-color: rgba($primary-color, 0.1);
+            color: $primary-color;
+          }
+          
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
+          
+          &.active {
+            background-color: $primary-color;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+  
+  // Modal styles for add/edit course
+  &__modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($text-primary, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+    
+    &-content {
+      background-color: $card-background;
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: scaleIn 0.3s ease-out;
+      
+      &-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid rgba($text-secondary, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        h2 {
+          margin: 0;
+          font-size: 1.5rem;
+          color: $text-primary;
+        }
+        
+        button {
+          background: none;
+          border: none;
+          color: $text-secondary;
+          cursor: pointer;
+          font-size: 1.5rem;
+          
+          &:hover {
+            color: $error-color;
+          }
+        }
+      }
+      
+      &-body {
+        padding: 1.5rem;
+      }
+      
+      &-footer {
+        padding: 1.5rem;
+        border-top: 1px solid rgba($text-secondary, 0.1);
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        
+        button {
+          padding: 0.75rem 1.5rem;
+          border-radius: $border-radius;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all $transition-speed;
+          
+          &.cancel {
+            background-color: transparent;
+            border: 1px solid rgba($text-secondary, 0.2);
+            color: $text-secondary;
+            
+            &:hover {
+              background-color: rgba($text-secondary, 0.1);
+            }
+          }
+          
+          &.save {
+            background-color: $primary-color;
+            border: none;
+            color: white;
+            
+            &:hover {
+              background-color: darken($primary-color, 10%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Confirmation dialog
+.confirm-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($text-primary, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+  
+  &__content {
+    background-color: $card-background;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    width: 90%;
+    max-width: 400px;
+    animation: scaleIn 0.3s ease-out;
+    
+    &-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba($text-secondary, 0.1);
+      
+      h3 {
+        margin: 0;
+        font-size: 1.25rem;
+        color: $text-primary;
+      }
+    }
+    
+    &-body {
+      padding: 1.5rem;
+      color: $text-secondary;
+    }
+    
+    &-footer {
+      padding: 1.5rem;
+      border-top: 1px solid rgba($text-secondary, 0.1);
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      
+      button {
+        padding: 0.75rem 1.5rem;
+        border-radius: $border-radius;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all $transition-speed;
+        
+        &.cancel {
+          background-color: transparent;
+          border: 1px solid rgba($text-secondary, 0.2);
+          color: $text-secondary;
+          
+          &:hover {
+            background-color: rgba($text-secondary, 0.1);
+          }
+        }
+        
+        &.confirm {
+          background-color: $error-color;
+          border: none;
+          color: white;
+          
+          &:hover {
+            background-color: darken($error-color, 10%);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive utilities
+.hide-on-mobile {
+  display: none !important;
+  
+  @include respond-to($breakpoint-md) {
+    display: table-cell !important;
+  }
+}
+
+.text-ellipsis {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  
+  @include respond-to($breakpoint-sm) {
+    max-width: 200px;
+  }
+  
+  @include respond-to($breakpoint-md) {
+    max-width: 300px;
+  }
+}
