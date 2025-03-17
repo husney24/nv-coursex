@@ -3,6 +3,7 @@
 ![Screenshot 2025-03-17 233732](https://github.com/user-attachments/assets/6348f6e4-3aee-4ba8-b780-7610f3d09278)
 ![Screenshot 2025-03-17 233748](https://github.com/user-attachments/assets/19b4b629-8b2a-493d-b583-7884788034aa)
 
+![Screenshot 2025-03-17 233817](https://github.com/user-attachments/assets/790fb028-340f-4a3a-a4dc-d836969fed99)
 
 
 A modern online learning platform built with React, Node.js, and MySQL.
